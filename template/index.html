@@ -1,0 +1,70 @@
+<!--<?php print <<<EOT
+-->
+
+<div class="table-responsive-xxl">
+      <table class="table table-bordered">
+            <thead>
+            <tr>
+                  <th>uid</th>
+                  <th>帳號</th>
+                  <th>email</th>
+                  <th>註冊時間</th>
+                  <th>登入時間</th>
+<!--
+EOT;
+if(!empty($userid)){print <<<EOT
+-->
+                  <th></th>
+<!--
+EOT;
+}print <<<EOT
+-->
+            </tr>
+            </thead>
+<!--
+EOT;
+foreach ($data as $key => $value){
+$regtime = date('Y-m-d H:i:s',$value['regtime']);
+$logintime = date('Y-m-d H:i:s',$value['logintime']);
+print <<<EOT
+-->
+
+
+
+            <tr>
+                  <td>$value[uid]</td>
+                  <td>$value[username]</td>
+                  <td>$value[email]</td>
+                  <td>$regtime</td>
+                  <td>$logintime</td>
+<!--
+EOT;
+if(!empty($userid)){print <<<EOT
+-->
+                  <td>
+
+                        <a href="mod.php?id=$value[uid]" rel="external nofollow" >編輯</a>
+
+                        <a href="del.php?id=$value[uid]" rel="external nofollow" >刪除</a>
+
+                  </td>
+<!--
+EOT;
+}print <<<EOT
+-->
+            </tr>
+<!--
+EOT;
+}print <<<EOT
+-->
+
+            </tbody>
+      </table>
+</div>
+
+$page
+
+
+<!--
+EOT;
+?>-->

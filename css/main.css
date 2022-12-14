@@ -1,0 +1,38 @@
+body{
+    font-family: Microsoft JhengHei;
+    background-color: #F5F5F5;
+    overflow:hidden;
+}
+/*消除 chrome firefox safari  點選 input, textarea  加邊框的效果 */
+input,textarea{outline:none;resize: none;}
+/*去除 chrome  firefox safari 超連接底線*/
+a,a:hover,a:link,a:visited{text-decoration: none !important;}
+
+
+textarea,select,input,button,div,span,a,td,th,ol,ul,li,h1,h2,h3,h4,h5,h6,article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section,dl, dt, dd,table, caption, tbody, tfoot, thead, tr, th, td,fieldset, form, label, legend{
+    font-family: Microsoft JhengHei;
+}
+
+.invalid-feedback {
+    display: block;
+    border: black 0px solid;
+    width: 100%;
+    height: 20px;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dc3545;
+}
+
+
+/*
+
+響應式表格
+*/
+
+
+@media only screen and (max-width: 800px) {
+
+
+
+
+}
