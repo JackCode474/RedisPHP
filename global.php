@@ -39,7 +39,7 @@ $todayTime= linuxTime(showdate($timestamp,'Y-m-d')); //今日
 $monthTime = linuxTime(showdate($timestamp,'Y-m').'-1');//當月
 $YearsTime = showdate($timestamp,'Y');
 
-//https://www.nhooo.com/note/qad6p8.html
+
 Startsql();
 
 
