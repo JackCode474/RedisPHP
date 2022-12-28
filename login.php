@@ -29,9 +29,11 @@ if(empty($step)){
     if(!empty($id)){
         $dbpassword = $db->hget("user:".$id,"password");
         if(md5($password) == $dbpassword){
-            //$auth = md5(time().$username.rand());
-            //$db->set("auth:".$auth,$id);
-
+            $db->hmset("user:".$id,array(
+                "logintime" =>  $timestamp,
+            ));
+            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip'].":本機區網");
+            $db->save();
             CookieModel::ShowCookie('UserLogin',CookieModel::ValueEncryption($id."|".$username));
 
             echo 'success';ajaxfooter();

@@ -26,20 +26,32 @@ if(empty($step)){
         }
 
         
+        if($db->get("username:".$username)){
+            echo '帳號已註冊過';ajaxfooter();
+        }
+        
+
         
         $uid = $db->incr("userid");
+
         $db->hMset("user:".$uid,array(
-            "uid"=>$uid,
-            "username"=>$username,
-            "password"=>$password,
-            "email"=>$email,
-            "regtime"=>$timestamp,
-            "logintime"=>$timestamp,
+            "uid"       =>  $uid,
+            "username"  =>  $username,
+            "password"  =>  $password,
+            "email"     =>  $email,
+            "regtime"   =>  $timestamp,
+            "logintime" =>  $timestamp,
         ));
 
         $db->rpush("uid",$uid);
 
         $db->set("username:".$username,$uid);
+        
+        $db->set("email:".$email,$uid);
+    
+        //同步存儲檔案
+        $db->save();
+        
         
         echo 'success';ajaxfooter();
 }

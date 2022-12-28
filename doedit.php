@@ -1,16 +1,17 @@
 <?php
 require("global.php");
-$uid = $_POST['uid'];
-$username = $_POST['username'];
-$email = $_POST['email'];
-$a=$db->hmset("user:".$uid,array(
-    "username"=>$username,
-    "email"=>$email,
+
+security::Getglobals(array('username','uid','email','step'),'POST','true');
+
+$db->hmset("user:".$uid,array(
+    "username"  =>  $username,
+    "email"     =>  $email,
 ));
 
-if($a){
-    header("location:index.php");
-}else{
-    header("location:mod.php?id=".$uid);
-}
+//同步存儲檔案
+$db->save();
+
+
+header("location:index.php");
+
 ?>

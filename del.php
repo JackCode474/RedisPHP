@@ -1,11 +1,16 @@
 <?php
 require("global.php");
-$uid = $_GET['id'];
-//echo $uid;
+
+security::Getglobals(array('id'),'GET','true');
+
 $username = $db->hget("user:".$id,"username");
-$a=$db->del("user:".$uid);
+
+$a=$db->del("user:".$id);
 $db->del("username:".$username);
-$db->lrem("uid",$uid);
+$db->del("LoginLog:".$id);
+
+$db->lrem("uid",$id);
+
 //var_dump($a);
 header("location:index.php");
 ?>
