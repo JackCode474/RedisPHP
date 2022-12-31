@@ -1,6 +1,7 @@
 <?php
 require("global.php");
 security::Getglobals(array('page'),'GET','true');
+
 $title = "Home";
 
 require_once printHTML('header');
@@ -8,7 +9,7 @@ require_once printHTML('header');
 //總數
 $count =$db->lsize("uid");//获取链表的长度
 //每次分頁幾筆
-$page_size = 10;
+$page_size = 20;
 //當前分頁
 $page_num=(!empty($page)) ? $page : 1;
 //分頁數

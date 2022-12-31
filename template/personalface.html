@@ -1,0 +1,53 @@
+<!--<?php print <<<EOT
+-->
+<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Face Upload</li>
+      </ol>
+</nav>
+
+<div class="row">
+      <div class="col-md-2">
+
+<!--
+EOT;
+require_once printHTML('personalmenu');
+print <<<EOT
+-->
+
+
+      </div>
+      <div class="col-md-10">
+            <div class="mb-3">
+                        <div class="text-center">
+                              <img src="$oldimages" id="preview_progressbarTW_img" class="rounded">
+                        </div>
+            </div>
+
+            <div id="validation" class="mb-3">
+                  <input type="hidden" name="oldimages" value="$oldimages">
+                  <label for="formFile" class="form-label">Face Upload</label>
+                  <input class="form-control" type="file" name="formFile" accept="image/gif,image/jpeg,image/png">
+                  <div class="invalid-feedback">
+
+                  </div>
+            </div>
+
+            <div class="text-center">
+
+                        <button type="button" class="btn btn-primary" onclick="Sendclick();">Upload</button>
+
+
+            </div>
+
+      </div>
+
+</div>
+
+
+<script type="text/javascript" src="js/personalface.js"></script>
+
+<!--
+EOT;
+?>-->

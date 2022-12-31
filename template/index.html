@@ -1,7 +1,7 @@
 <!--<?php print <<<EOT
 -->
 
-<div class="table-responsive-xxl">
+<div class="table-responsive-xxl" id="no-more-tables">
       <table class="table table-bordered">
             <thead>
             <tr>
@@ -14,7 +14,7 @@
 EOT;
 if(!empty($userid)){print <<<EOT
 -->
-                  <th></th>
+                  <th>操作</th>
 <!--
 EOT;
 }print <<<EOT
@@ -32,16 +32,16 @@ print <<<EOT
 
 
             <tr>
-                  <td>$value[uid]</td>
-                  <td>$value[username]</td>
-                  <td>$value[email]</td>
-                  <td>$regtime</td>
-                  <td>$logintime</td>
+                  <td data-title="uid">$value[uid]</td>
+                  <td data-title="帳號">$value[username]</td>
+                  <td data-title="email">$value[email]</td>
+                  <td data-title="註冊時間">$regtime</td>
+                  <td data-title="登入時間">$logintime</td>
 <!--
 EOT;
 if(!empty($userid)){print <<<EOT
 -->
-                  <td>
+                  <td data-title="操作">
 
                         <a href="mod.php?id=$value[uid]" rel="external nofollow" >編輯</a>
 

@@ -1,0 +1,155 @@
+ServerSignature Off
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    ErrorDocument 404 /error/404.html
+    ErrorDocument 500 /error/500.html
+    ErrorDocument 501 /error/501.html
+    ErrorDocument 502 /error/502.html
+    ErrorDocument 503 /error/503.html
+    ErrorDocument 504 /error/504.html
+    ErrorDocument 505 /error/505.html
+    ErrorDocument 511 /error/511.html
+     # BLOCK Proxy Servers
+    RewriteCond %{HTTP:VIA}                 !^$ [OR]
+    RewriteCond %{HTTP:FORWARDED}           !^$ [OR]
+    RewriteCond %{HTTP:FORWARDED-FOR}       !^$ [OR]
+    RewriteCond %{HTTP:X-FORWARDED}         !^$ [OR]
+    RewriteCond %{HTTP:X_FORWARDED_FOR}     !^$ [OR]
+    RewriteCond %{HTTP:PROXY_CONNECTION}    !^$ [OR]
+    RewriteCond %{HTTP:XPROXY_CONNECTION}   !^$ [OR]
+    RewriteCond %{HTTP:HTTP_PC_REMOTE_ADDR} !^$ [OR]
+    RewriteCond %{HTTP:HTTP_CLIENT_IP}      !^$ [OR]
+    RewriteCond %{HTTP:USERAGENT_VIA}       !^$
+    RewriteRule ^(.*)$ - [F]
+
+    # BLOCK Empty USER_AGENT
+    RewriteCond %{HTTP_USER_AGENT} ^$
+    RewriteRule ^(.*)$ - [F,L]
+
+
+    #強制 http to https
+    #RewriteCond %{REQUEST_URI} !^/?(final)
+    #RewriteCond %{REQUEST_URI} !^/?(notify)
+    #RewriteCond %{HTTPS} off
+    #RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+</IfModule>
+
+# Block Direct access
+<FilesMatch (.*).(gitattributes|gitignore|README|webpack|package|package-lock|composer|env|zip|rar|htaccess)$>
+    Require all denied
+</FilesMatch>
+
+# Block MySQL injections, RFI, base64, etc.
+RewriteCond %{HTTP_USER_AGENT} (libwww-perl|wget|python|nikto|curl|scan|java|winhttp|clshttp|loader) [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} (<|>|'|%0A|%0D|%27|%3C|%3E|%00) [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} (;|<|>|'|"|\)|\(|%0A|%0D|%22|%27|%28|%3C|%3E|%00).*(libwww-perl|wget|python|nikto|curl|scan|java|winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner) [NC,OR]
+RewriteCond %{THE_REQUEST} \/\*\ HTTP/ [NC,OR]
+RewriteCond %{THE_REQUEST} etc/passwd [NC,OR]
+RewriteCond %{THE_REQUEST} cgi-bin [NC,OR]
+RewriteCond %{THE_REQUEST} (%0A|%0D) [NC,OR]
+RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=http:// [OR]
+RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=(\.\.//?)+ [OR]
+RewriteCond %{QUERY_STRING} [a-zA-Z0-9_]=/([a-z0-9_.]//?)+ [NC,OR]
+RewriteCond %{QUERY_STRING} \=PHP[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12} [NC,OR]
+RewriteCond %{QUERY_STRING} (\.\./|\.\.) [OR]
+RewriteCond %{QUERY_STRING} ftp\: [NC,OR]
+RewriteCond %{QUERY_STRING} http\: [NC,OR]
+RewriteCond %{QUERY_STRING} https\: [NC,OR]
+RewriteCond %{QUERY_STRING} \=\|w\| [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)/self/(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)cPath=http://(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} (\<|%3C).*iframe.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} (<|%3C)([^i]*i)+frame.*(>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]
+RewriteCond %{QUERY_STRING} base64_(en|de)code[^(]*\([^)]*\) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>).* [NC,OR]
+RewriteCond %{QUERY_STRING} (NULL|OUTFILE|LOAD_FILE) [OR]
+RewriteCond %{QUERY_STRING} (\./|\../|\.../)+(motd|etc|bin) [NC,OR]
+RewriteCond %{QUERY_STRING} (localhost|loopback|127\.0\.0\.1) [NC,OR]
+RewriteCond %{QUERY_STRING} (<|>|'|%0A|%0D|%27|%3C|%3E|%00) [NC,OR]
+RewriteCond %{QUERY_STRING} concat[^\(]*\( [NC,OR]
+RewriteCond %{QUERY_STRING} union([^s]*s)+elect [NC,OR]
+RewriteCond %{QUERY_STRING} union([^a]*a)+ll([^s]*s)+elect [NC,OR]
+RewriteCond %{QUERY_STRING} (;|<|>|'|"|\)|%0A|%0D|%22|%27|%3C|%3E|%00).*(/\*|union|select|insert|drop|delete|update|cast|create|char|convert|alter|declare|order|script|set|md5|benchmark|encode) [NC,OR]
+RewriteCond %{QUERY_STRING} (sp_executesql) [NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Sectigo\ DCV)?$
+RewriteRule ^(.*)$ - [F,L]
+
+
+
+# Block Bad Bots 搜尋引擎
+
+BrowserMatchNoCase ^User-Agent$ .*(Baidu|sogou|Bloghoo|Scooter|360Spider) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(aesop_com_spiderman|alexibot|backweb|bandit|batchftp|bigfoot) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(black.?hole|blackwidow|blowfish|botalot|buddy|builtbottough|bullseye) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(cheesebot|cherrypicker|chinaclaw|collector|copier|copyrightcheck) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(cosmos|crescent|curl|custo|da|diibot|disco|dittospyder|dragonfly) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(drip|easydl|ebingbong|ecatch|eirgrabber|emailcollector|emailsiphon) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(emailwolf|erocrawler|exabot|eyenetie|filehound|flashget|flunky) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(frontpage|getright|getweb|go.?zilla|go-ahead-got-it|gotit|grabnet) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(grafula|harvest|hloader|hmview|httplib|httrack|humanlinks|ilsebot) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(infonavirobot|infotekies|intelliseek|interget|iria|jennybot|jetcar) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(joc|justview|jyxobot|kenjin|keyword|larbin|leechftp|lexibot|lftp|libweb) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(likse|linkscan|linkwalker|lnspiderguy|lwp|magnet|mag-net|markwatch) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(mata.?hari|memo|microsoft.?url|midown.?tool|miixpc|mirror|missigua) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(mister.?pix|moget|mozilla.?newt|nameprotect|navroad|backdoorbot|nearsite) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(net.?vampire|netants|netcraft|netmechanic|netspider|nextgensearchbot) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(attach|nicerspro|nimblecrawler|npbot|octopus|offline.?explorer) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(offline.?navigator|openfind|outfoxbot|pagegrabber|papa|pavuk) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(pcbrowser|php.?version.?tracker|pockey|propowerbot|prowebwalker) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(psbot|pump|queryn|recorder|realdownload|reaper|reget|true_robot) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(repomonkey|rma|internetseer|sitesnagger|siphon|slysearch|smartdownload) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(snake|snapbot|snoopy|sogou|spacebison|spankbot|spanner|sqworm|superbot) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(superhttp|surfbot|asterias|suzuran|szukacz|takeout|teleport) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(telesoft|the.?intraformant|thenomad|tighttwatbot|titan|urldispatcher) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(turingos|turnitinbot|urly.?warning|vacuum|vci|voideye|whacker) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(widow|wisenutbot|wwwoffle|xaldon|xenu|zeus|zyborg|anonymouse) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*web(zip|emaile|enhancer|fetch|go.?is|auto|bandit|clip|copier|master|reaper|sauger|site.?quester|whack) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(craftbot|download|extract|stripper|sucker|ninja|clshttp|webspider|leacher|collector|grabber|webpictures) HTTP_SAFE_BADBOT
+BrowserMatchNoCase ^User-Agent$ .*(libwww-perl|aesop_com_spiderman) HTTP_SAFE_BADBOT
+
+
+<RequireAll>
+    # 限制搜尋引擎訪問
+    Require not env HTTP_SAFE_BADBOT
+    #允许所有
+    Require all granted
+    #拒绝所有
+    #Require all denied
+	# 允許 ip  訪問
+	#Require ip 127.0.0.1
+    # 限制 ip  訪問
+    #Require not ip 1.2.3.4
+</RequireAll>
+
+<ifModule mod_gzip.c>
+mod_gzip_on Yes
+mod_gzip_dechunk Yes
+mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+mod_gzip_item_include handler ^cgi-script$
+mod_gzip_item_include mime ^text/.*
+mod_gzip_item_include mime ^application/x-javascript.*
+mod_gzip_item_exclude mime ^image/.*
+mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</ifModule>
+
+<IfModule mod_headers.c>
+Header set X-XSS-Protection "1; mode=block"
+Header unset ETag
+Header unset Server
+</IfModule>
+
+#<Files admin>
+#Require all denied
+#Require ip 127.0.0.1
+#</Files>

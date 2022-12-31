@@ -1,29 +1,38 @@
 
 function Sendclick(){
       
-      
-      
-      
+      var regname = /^([a-zA-Z0-9]{6,30})+$/;
+      var regexemail = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      var regpassword = /^(?=.*?[A-Z])([\d|a-zA-Z0-9]{6,10})+$/;
       var error = 0;
       
       if($("[name='username']").val().length < 1){
             error+=1;
-            $("[name='username']").addClass("is-invalid").next(".invalid-feedback").text('您注册帳號未填寫');
+            $("[name='username']").addClass("is-invalid").next(".invalid-feedback").text('您注册帳號未填寫。');
             
+      } else if(!regname.test($("[name='username']").val())){
+            error+=1;
+            $("[name='username']").addClass("is-invalid").next(".invalid-feedback").text('您註冊帳號格式不正確只限英文、數字，最少 6 位最長 30 位。');
       }
       
       
       if($("[name='password']").val().length < 1){
             error+=1;
-            $("[name='password']").addClass("is-invalid").next(".invalid-feedback").text('您注册密碼未填寫');
+            $("[name='password']").addClass("is-invalid").next(".invalid-feedback").text('您注册密碼未填寫。');
+      } else if(!regpassword.test($("[name='password']").val())){
+            error+=1;
+            $("[name='password']").addClass("is-invalid").next(".invalid-feedback").text('您註冊密碼格式只限英文、數字，最少 6 位最長 10 位，至少一個大寫字母。');
+      
       }
       
       
       if($("[name='email']").val().length < 1){
             error+=1;
-            $("[name='email']").addClass("is-invalid").next(".invalid-feedback").text('您注册 email 未填寫');
+            $("[name='email']").addClass("is-invalid").next(".invalid-feedback").text('您注册 E-mail 未填寫。');
+      } else if(!regexemail.test($("[name='email']").val())){
+            error+=1;
+            $("[name='email']").addClass("is-invalid").next(".invalid-feedback").text('您註冊 E-mail 格式不正確。');
       }
-      
       
       
       if(error > 0 ){
@@ -134,9 +143,22 @@ const  generateRandomString = (num) => {
 
 
 $(document).ready(function(){
-      $("[name='username']").val(generateRandomString(5));
+      $("[name='username']").val(generateRandomString(6));
       $("[name='password']").val(generateRandomString(8));
       $("[name='email']").val(generateRandomString(8)+'@test.com');
+      
+      
+      $("[name='username']").click(function() {
+            $("[name='username']").removeClass("is-invalid").next(".invalid-feedback").text('');
+      });
+      
+      $("[name='password']").click(function() {
+            $("[name='password']").removeClass("is-invalid").next(".invalid-feedback").text('');
+      });
+      
+      $("[name='email']").click(function() {
+            $("[name='email']").removeClass("is-invalid").next(".invalid-feedback").text('');
+      });
       
       $.getScript("js/dialog.js?v="+new Date().getTime());
 });

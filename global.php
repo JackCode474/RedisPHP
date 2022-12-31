@@ -3,7 +3,7 @@ define('WEBROOT',CheckRoot(__FILE__));
 include(WEBROOT.'Model/security.php');
 security::Getglobal();
 security::globalcheck();
-include(WEBROOT.'Model/Mobile_Detect.php');
+include(WEBROOT.'Model/MobileDetect.php');
 include(WEBROOT.'Model/command.php');
 include(WEBROOT.'Model/cookie.php');
 include(WEBROOT.'Model/gzip.php');
@@ -72,15 +72,31 @@ function UserDB(){
 
 function mobiledevice(){
     
-    $detect = new Mobile_Detect();
-    if ($detect->isMobile() && !$detect->isTablet()){
-        if($detect->isiOS() || $detect->isAndroidOS()){
-            return 'mobile';
+    $detect = new MobileDetect();
+    if( $detect->isMobile() && !$detect->isTablet()){
+        
+        if($detect->isiOS()){
+            return array('iOSMobile',$detect->version('iOS'));
+        } else if($detect->isAndroidOS()){
+            return  array('AndroidMobile',$detect->version('Android'));
         }
-    } else if($detect->isTablet()) {
-        return 'tablet';
+        
+    } else if( !$detect->isMobile() && $detect->isTablet()){
+        
+        if($detect->isiOS()){
+            return array('iOSTablet',$detect->version('iOS'));
+        } else if($detect->isAndroidOS()){
+            return  array('AndroidTablet',$detect->version('Android'));
+        }
     } else {
-        return 'computer';
+        
+        if($detect->version('Windows NT')){
+            return array('Desktop','Windows NT '.$detect->version('Windows NT'));
+        } else if($detect->version('Mac')){
+            return array('Desktop','Mac '.$detect->version('Mac'));
+        } else if($detect->version('Linux')){
+            return array('Desktop','Linux '.$detect->version('Linux'));
+        }
     }
 }
 
@@ -132,9 +148,11 @@ function ajaxfooter(){
     if($GLOBALS['default_redundancy']){
         $output = compress_html($output);
     }
+    $GLOBALS['db']->close();
     echo GzipModel::GzipExport($output);
     unset($output);
     GzipModel::claseGZIP();
+    
     exit;
 }
 
@@ -157,6 +175,7 @@ function footer(){
     
     $output = removeBOM($output);
     $output = preg_replace("/<!--(.*?)-->/is","",$output);
+    $GLOBALS['db']->close();
     echo GzipModel::GzipExport($output);
     unset($output);
     GzipModel::claseGZIP();
@@ -186,13 +205,28 @@ function HtmlRewrite($output=''){
 
 function Startsql(){
     global $db;
+   
+    try{
     
-    if (!is_object($GLOBALS['db'])) {
-        $db = new Redis();
-        $db->connect($GLOBALS['Redishost'],$GLOBALS['Redisport']);
-        //var_dump($a);
-        $db->auth($GLOBALS['Redispwassword']);
+        if (!is_object($GLOBALS['db'])) {
+    
+            $db = new Redis();
+            if ($db->connect($GLOBALS['Redishost'],$GLOBALS['Redisport']) == false) {
+                die($db->getLastError());
+            }
+        
+            if($db->auth($GLOBALS['Redispwassword']) == false){
+                die($db->getLastError());
+            }
+        }
+    
+    }catch (RedisException $ex) {
+ 
+        echo $ex->getMessage();
+        exit;
     }
+    
+
    
 }
 

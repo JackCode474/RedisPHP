@@ -11,6 +11,7 @@
 <meta name="rating" content="mature">
 <meta name="keywords" content="$keywords">
 <meta name="description" itemprop="description" content="$description" >
+<link rel="stylesheet" href="css/bootstrap-icons-1.10.3/bootstrap-icons.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/main.css">
 <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
@@ -18,7 +19,7 @@
 </head>
 <body>
 <!-- header -->
-<div class="container">
+<div class="container-xxl">
 
 
       <nav class="navbar navbar-expand-lg  rounded" aria-label="Eleventh navbar example">
@@ -31,22 +32,25 @@
                   <div class="collapse navbar-collapse" id="navbarsExample09">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                               <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                                    <a class="nav-link active" aria-current="page" href="index.php">首頁</a>
                               </li>
                               <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
+                                    <a class="nav-link">產品</a>
                               </li>
                               <li class="nav-item">
-                                    <a class="nav-link disabled">Disabled</a>
+                                    <a class="nav-link">新聞</a>
                               </li>
-                              <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                              <li class="nav-item"><a class="nav-link" href="#">發展願望</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#">投資關係</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#">關於我們</a></li>
+                              <!--li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">更多</a>
                                     <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="#">Action</a></li>
-                                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                          <li><a class="dropdown-item" href="#">發展願望</a></li>
+                                          <li><a class="dropdown-item" href="#">投資關係</a></li>
+                                          <li><a class="dropdown-item" href="#">關於我們</a></li>
                                     </ul>
-                              </li>
+                              </li-->
 
                         </ul>
                         <ul class="navbar-nav">
@@ -54,14 +58,14 @@
 EOT;
 if(!empty($userid)){print <<<EOT
 -->
-                              <li class="nav-item"><a class="nav-link" >Welcome {$username}</a> </li>
-                              <li class="nav-item"><a href="logout.php" class="nav-link" >登出</a></li>
+                              <li class="nav-item">  <a href="personal.php" class="nav-link" ><i class="bi bi-person-circle"></i> {$username}</a> </li>
+                              <li class="nav-item"><a href="logout.php" class="nav-link" ><i class="bi bi-box-arrow-right"></i> 登出</a></li>
 <!--
 EOT;
 } else {print <<<EOT
 -->
-                              <li class="nav-item"><a href="register.php" class="nav-link">註冊</a></li>
-                              <li class="nav-item"><a href="login.php" class="nav-link" >登入</a></li>
+                              <li class="nav-item"><a href="register.php" class="nav-link"><i class="bi bi-r-square"></i> 註冊</a></li>
+                              <li class="nav-item"><a href="login.php" class="nav-link" ><i class="bi bi-box-arrow-in-left"></i> 登入</a></li>
 <!--
 EOT;
 }print <<<EOT

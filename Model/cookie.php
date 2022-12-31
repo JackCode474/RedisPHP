@@ -2,7 +2,7 @@
 !defined('WEBROOT') && exit('Forbidden');
 
 //cookie 加密 key
-$cookiekey = "$%^&*".$_SERVER['SERVER_NAME'].$_SERVER['HTTP_USER_AGENT']."#$%^&!*";
+$cookiekey = "$%^&*/".$_SERVER['SERVER_NAME'].$_SERVER['HTTP_USER_AGENT']."#$%^&!*";
 
 class CookieModel{
     

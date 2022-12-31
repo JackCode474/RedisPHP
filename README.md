@@ -1,4 +1,12 @@
 # RedisPHP
-Redis Server 與原生 PHP 8 會員登入及登出<br>
+Nosql Redis Server<br>
+Native PHP 8<br><br>
 
-修改 2022-12-28
+Bootstrap  v5.2.3<br>
+bootstrap-icons-1.10.3<br>
+
+# 開發版權
+Jack Programming Engineer
+
+# 更新時間
+Date: 2022-12-31

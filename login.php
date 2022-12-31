@@ -19,7 +19,8 @@ if(empty($step)){
     
     
 } else  {
-    
+    $username = security::stripTags($username);
+    $password = security::stripTags($password);
     if(empty($username) || empty($password)){
         echo '無此帳號';ajaxfooter();
     }
@@ -32,7 +33,10 @@ if(empty($step)){
             $db->hmset("user:".$id,array(
                 "logintime" =>  $timestamp,
             ));
-            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip'].":本機區網");
+            
+            list($type,$ver) = mobiledevice();
+            
+            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip']."|本機區網|$type|$ver");
             $db->save();
             CookieModel::ShowCookie('UserLogin',CookieModel::ValueEncryption($id."|".$username));
 

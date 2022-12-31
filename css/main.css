@@ -1,7 +1,8 @@
 body{
     font-family: Microsoft JhengHei;
     background-color: #F5F5F5;
-    overflow:hidden;
+    overflow-x:hidden;
+    overflow-y:scroll;
 }
 /*消除 chrome firefox safari  點選 input, textarea  加邊框的效果 */
 input,textarea{outline:none;resize: none;}
@@ -23,16 +24,116 @@ textarea,select,input,button,div,span,a,td,th,ol,ul,li,h1,h2,h3,h4,h5,h6,article
     color: #dc3545;
 }
 
+.contpage{
+    display: block;
+}
+
+
 
 /*
-
 響應式表格
 */
 
-
 @media only screen and (max-width: 800px) {
 
+    .justifycenter{
+        text-align: center!important;
+    }
+
+    .contpage{
+        display:none;
+    }
+
+    .pagination {
+        --bs-pagination-padding-x: 0.75rem;
+        --bs-pagination-padding-y: 0.375rem;
+        --bs-pagination-font-size: 1rem;
+        --bs-pagination-color: var(--bs-link-color);
+        --bs-pagination-bg: #fff;
+        --bs-pagination-border-width: 1px;
+        --bs-pagination-border-color: #dee2e6;
+        --bs-pagination-border-radius: 10rem;
+        --bs-pagination-hover-color: var(--bs-link-hover-color);
+        --bs-pagination-hover-bg: #e9ecef;
+        --bs-pagination-hover-border-color: #dee2e6;
+        --bs-pagination-focus-color: var(--bs-link-hover-color);
+        --bs-pagination-focus-bg: #e9ecef;
+        --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        --bs-pagination-active-color: #fff;
+        --bs-pagination-active-bg: #0d6efd;
+        --bs-pagination-active-border-color: #0d6efd;
+        --bs-pagination-disabled-color: #6c757d;
+        --bs-pagination-disabled-bg: #fff;
+        --bs-pagination-disabled-border-color: #dee2e6;
+        display: flex;
+        padding-left: 0;
+        list-style: none;
+        justify-content: center!important;
+    }
+
+    .page-link {
+        position: relative;
+        display: block;
+        padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+        margin: 0px 5px 0px 5px;
+        font-size: var(--bs-pagination-font-size);
+        color: var(--bs-pagination-color);
+        text-decoration: none;
+        background-color: var(--bs-pagination-bg);
+        border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+        border-radius: 10rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr {
+        display: block;
+    }
+
+    #no-more-tables thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #no-more-tables tr { border-bottom: 1px dashed #000; }
+
+    #no-more-tables td {
+        border: none;
+
+        border-bottom: 1px dashed #eee;
+        position: relative;
+        padding-left: 20%;
+        white-space: normal;
+        text-align:left;
+    }
 
 
+
+    #no-more-tables td:before {
+        /*position:relative;*/
+        position:absolute;
+        top: 0px;
+        left: 0px;
+        width:10%;
+        padding:0px;
+        white-space: nowrap;
+        float:left;
+        word-break: normal;
+    }
+
+    #no-more-tables td:before {
+        content: attr(data-title);
+        border-right: 0px dashed #eee;
+        color:black;
+        padding-left: 1px;
+        padding-top:6px;
+        font-weight: bold;
+        word-break: normal;
+    }
 
 }

@@ -284,7 +284,7 @@ function compress_html($string) {
 */
 
 function GetcheckIp(){
-
+    $onlineip = '';
 	if ($_SERVER['HTTP_X_FORWARDED_FOR'] && $_SERVER['REMOTE_ADDR']) {
 			if (strstr($_SERVER['HTTP_X_FORWARDED_FOR'], ',')) {
 				$x = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
@@ -325,8 +325,6 @@ function showpage($count, $page, $numofpage, $url, $max = null, $ajaxurl = 'fals
 	if ($numofpage <= 1 || !is_numeric($page)) {
 		return '';
 	}*/
-
-
 	if (is_numeric($page)){
 
 		list($pre, $next) = array($page - 1, $page + 1);
@@ -430,7 +428,7 @@ function showpage($count, $page, $numofpage, $url, $max = null, $ajaxurl = 'fals
 
 
 
-		$pages.= "<li class=\"page-item\"><a href=\"javascript:;\" class=\"page-link\">&#20849; {$total} &#38913;/";
+		$pages.= "<li class=\"page-item contpage\"><a href=\"javascript:;\" class=\"page-link\">&#20849; {$total} &#38913;/";
 
 		//$pages.= "&#x6BCF;&#x9801; $defaultpage &#x7B46/";
 
@@ -653,9 +651,9 @@ function removeBOM($str = ''){
 
 
 function ObHeader($URL) {
-
-       $URL =  HtmlRewrite($URL);
-
+    if($GLOBALS['default_rewrite']){
+        $URL=HtmlRewrite($URL);
+    }
 
 	echo '<meta http-equiv="expires" content="0">';
 	echo '<meta http-equiv="Pragma" content="no-cache">';
