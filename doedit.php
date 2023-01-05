@@ -8,8 +8,8 @@ $db->hmset("user:".$uid,array(
     "email"     =>  $email,
 ));
 
-//同步存儲檔案
-$db->save();
+//異步儲存檔案
+$db->bgsave();
 
 
 header("location:index.php");

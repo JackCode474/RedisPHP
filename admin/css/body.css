@@ -1,0 +1,236 @@
+
+/*消除 chrome firefox safari  點選 input, textarea  加邊框的效果 */
+input,textarea{outline:none;resize: none;}
+/*去除 chrome  firefox safari 超連接底線*/
+a,a:hover,a:link,a:visited{text-decoration: none !important;}
+
+
+textarea,select,input,button,div,span,a,td,th,ol,ul,li,h1,h2,h3,h4,h5,h6,article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section,dl, dt, dd,table, caption, tbody, tfoot, thead, tr, th, td,fieldset, form, label, legend{
+    font-family: Microsoft JhengHei;
+
+}
+
+
+body{
+    font-family: Microsoft JhengHei;
+    background-color: #F5F5F5;
+    padding: 0;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 100px;
+
+}
+
+
+.sidebar{
+    margin: 0;
+    padding: 0;
+
+}
+
+.sidebar-sticky{
+    margin: 0;
+    padding: 0;
+    overflow-y:auto;
+}
+
+.sidebar-sticky h5{
+    margin-top: 6px;
+    margin-left: 8px;
+    color:#C0C0C0;
+    font-weight: bold;
+}
+
+
+.nav-itemli{
+    float: left;
+    padding: 3px 0px 3px 12px;
+
+}
+
+.nav-itemli a{
+    padding-left:20px;
+}
+/*
+.nav-itemli i{
+    padding-left:0px;
+    color:#C0C0C0;
+}*/
+
+.nav-itemli a{
+    color:#C0C0C0;
+}
+/*
+.active{
+    background: white;
+}
+
+.active a{
+    color: black;
+    font-weight: bold;
+}
+
+.active i{
+    color: black;
+}*/
+
+#navbarMenu{
+    display: none;
+}
+
+#navbarMenu h3{
+    color:#C0C0C0;
+}
+
+#navbarMenu h5{
+    color:#C0C0C0;
+}
+
+
+
+
+.categoryinput{
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border:1px solid;
+    border-color:#666666 #DCDCDC #DCDCDC #666666;
+    background:#ffffff;
+    color:#000000;
+    height:40px;
+    width:15%;
+    padding:1px 3px 1px 3px;
+    vertical-align:middle;
+    font-family: Microsoft JhengHei,Microsoft Yahei,'SimSun',Arial,Sans-Serif;
+    font-size: 11pt;
+    line-height: 16px;
+    margin:6px 2px 6px 2px;
+
+}
+
+
+
+.list{width:auto;margin: 0;padding: 0;}
+
+.list li{
+    list-style-type:none;
+}
+
+.list,.Two,.Insured{
+    padding:.4em .6em;
+}
+
+
+.title{
+    font-weight: bold;
+    font-size: 16px;
+    color: #C0C0C0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.titleli{display:none;}
+
+.titleli li{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+
+#Menuclear{
+    display: block;
+}
+
+
+
+.break-all{
+    width: 600px;
+    height:auto;
+    word-break:break-all;
+    border: black 0px solid;
+}
+.break-all-a{
+    width: 20%;
+    height:auto;
+    word-break:break-all;
+    border: black 0px solid;
+}
+.break-all-b{
+    width: 30%;
+    height:auto;
+    word-break:break-all;
+    border: black 0px solid;
+}
+.break-all-c{
+    width: 40%;
+    height:auto;
+    word-break:break-all;
+    border: black 0px solid;
+}
+/*
+
+響應式表格
+*/
+
+@media only screen and (max-width: 800px) {
+
+    .break-all,.break-all-a,break-all-b,break-all-c{
+        width: 100%;
+    }
+
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr {
+        display: block;
+    }
+
+    #no-more-tables thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #no-more-tables tr { border-bottom: 1px dashed #000; }
+
+    #no-more-tables td {
+        border: none;
+        border-bottom: 1px dashed #eee;
+        position: relative;
+        padding-left: 25%;
+        white-space: normal;
+        text-align:left;
+    }
+
+
+
+    #no-more-tables td:before {
+        /*position:relative;*/
+        position:absolute;
+        top: 0px;
+        left: 0px;
+        width:10%;
+        padding:0px;
+        white-space: nowrap;
+        float:left;
+        word-break: normal;
+    }
+
+    #no-more-tables td:before {
+        content: attr(data-title);
+        border-right: 0px dashed #eee;
+        color:red;
+        padding-left: 1px;
+        padding-top:12px;
+        font-weight: bold;
+        word-break: normal;
+    }
+
+
+}

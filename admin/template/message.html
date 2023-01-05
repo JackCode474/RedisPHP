@@ -1,0 +1,56 @@
+<!--<?php print <<<EOT
+--><!DOCTYPE HTML>
+<html>
+<head>
+<title>長佳智能管理系統</title>
+<meta http-equiv='X-UA-Compatible' content='IE=Edge;requiresActiveX=true,chrome=1'>
+<meta http-equiv="windows-Target" content="_top">
+<meta http-equiv="imagetoolbar" content="false">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-store">
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-3.0.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<body>
+<div class="container">
+
+
+      <div class="jumbotron" style="margin-top: 200px;">
+            <h1 class="display-4">提醒</h1>
+            <hr class="my-4">
+            <p>$msg</p>
+<!--
+EOT;
+if($jumpurl){print <<<EOT
+-->
+            <meta http-equiv='refresh' content='$Second; url=$jumpurl'>
+            <a href="$jumpurl"><font color=red>如果未自動跳轉,請按這邊..</font></a>
+<!--
+EOT;
+}else{print <<<EOT
+-->
+            <input class="btn btn-primary btn-lg"  type="button" value="返回上一頁" onclick="window.history.back();" />
+<!--
+EOT;
+}print <<<EOT
+-->
+      </div>
+
+
+  </div>
+
+<script type="text/javascript" src="admin/js/message.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+<!--
+EOT;
+?>-->

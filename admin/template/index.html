@@ -1,0 +1,144 @@
+<!--<?php print <<<EOT
+--><!DOCTYPE html>
+<head>
+<title>後端管理系統</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" >
+<meta http-equiv='X-UA-Compatible' content='IE=Edge;requiresActiveX=true,chrome=1'>
+<meta http-equiv="windows-Target" content="_top">
+<meta http-equiv="imagetoolbar" content="false">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-store">
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/all.min.css" rel="stylesheet" type="text/css"/>
+<link href="admin/css/Additional.css" rel="stylesheet" type="text/css"/>
+<link href="admin/css/tabstyle.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.browser.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="admin/js/jquery.md5.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+
+      <a class="navbar-brand Logo" href="admin.html"><img src="image/logo.png" style="max-width:100px;"></a>
+
+
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+
+            <ul class="navbar-nav mr-auto">
+                  <li id="Menuclear">
+                        <div style="padding-left: 50px;">
+                              <button class="btn btn-secondary btn-sm" type="button" onclick="Menuclear();"><i class="fa-solid fa-align-justify"></i></button>
+                        </div>
+                  </li>
+
+            </ul>
+
+
+            <div class="navbar-nav ms-auto">
+
+                  <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+
+                              <a class="nav-link dropdown-toggle" href="#" id="dropdown05" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;"><i class="fa fa-user" ></i> $adminusername </a>
+                              <ul class="dropdown-menu" aria-labelledby="dropdown05">
+
+                                    <li><a class="dropdown-item" href="javascript:;" onclick="topmenu('Personal','修改密碼');return false;"  ><i class="fas fa-key"></i> 修改密碼</a></li>
+
+                                    <li><div class="dropdown-divider"></div></li>
+                                    <li><a class="dropdown-item" href="javascript:;" onclick="QuitSystem();" ><i class="fa fa-power-off" ></i> 登出</a></li>
+                              </ul>
+
+                        </li>
+                  </ul>
+
+                  <a href="javascript:;"  onclick="getreloads();"  class="nav-link" title="Refresh Page" style="color: white;"><i class="fa fa-sort"></i> 重新整理</a>
+
+            </div>
+
+
+            <div id="navbarMenu" style="padding: 0;overflow-y:auto;height: 300px;">
+
+                  <h3>Menu</h3>
+
+                  <ul class="nav flex-column" >
+                        <div class="title" >
+                              <i class="fa fa-home" aria-hidden="true"></i> <a href="admin.php" style="color: white;"> 首頁</a>
+                        </div>
+
+
+                        $adminMenu
+
+                  </ul>
+
+            </div>
+
+
+
+
+      </div>
+</nav>
+<div class="container-fluid">
+      <div class="row">
+            <div id="leftmenu" class="col-md-1 bg-light sidebar navbar-dark bg-dark" >
+                  <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                              <div class="title" >
+                                    <i class="fa fa-home" aria-hidden="true"></i> <a href="javascript:;" onclick="topmenu('main','首頁');" style="color: white;"> 首頁</a>
+                              </div>
+
+                              $adminMenu
+
+                        </ul>
+                  </div>
+            </div>
+
+            <div id="main" class="col-md-11" style="padding: 0;">
+                  <div id="page-tab">
+                        <button class="tab-btn" id="page-prev"></button>
+                        <nav id="page-tab-content">
+                              <div id="menu-list"></div>
+                        </nav>
+                        <button class="tab-btn" id="page-next"></button>
+                        <div id="page-operation" style="background-color:WhiteSmoke;">
+                              <div id="menu-all">
+                                    <ul id="menu-all-ul">
+                                    </ul>
+                              </div>
+                        </div>
+                  </div>
+                  <div id="page-content"></div>
+            </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="admin/js/global.js"></script>
+
+</body>
+</html>
+<!--
+EOT;
+?>-->
+

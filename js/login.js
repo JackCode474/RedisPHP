@@ -5,9 +5,9 @@ function Sendclick(){
       
       var error = 0;
       
-      if($("[name='username']").val().length < 1){
+      if($("[name='email']").val().length < 1){
             error+=1;
-            $("[name='username']").addClass("is-invalid").next(".invalid-feedback").text('您登入帳號未填寫');
+            $("[name='email']").addClass("is-invalid").next(".invalid-feedback").text('您登入 e-mail 未填寫');
             
       }
       
@@ -108,8 +108,8 @@ function Sendclick(){
 
 $(document).ready(function(){
       
-      $("[name='username']").click(function() {
-            $("[name='username']").removeClass("is-invalid").next(".invalid-feedback").text('');
+      $("[name='email']").click(function() {
+            $("[name='email']").removeClass("is-invalid").next(".invalid-feedback").text('');
       });
       
       

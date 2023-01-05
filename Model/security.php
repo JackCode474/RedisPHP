@@ -232,9 +232,9 @@ class Security {
 					$GLOBALS[$key] = trim($_POST[$key]);
 				}
 
-                            if (isset($_GET[$key])) {
-					$GLOBALS[$key] = trim($_GET[$key]);
-				}
+                if (isset($_GET[$key])) {
+                    $GLOBALS[$key] = trim($_GET[$key]);
+                }
 			}
 
 			//變數檢查轉換  防 xss  flase => 存在  true=>空

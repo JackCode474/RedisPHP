@@ -64,6 +64,8 @@ if(empty($step)){
             "username"  =>  $username,
             "password"  =>  $password,
             "email"     =>  $email,
+            "onlineip"  =>  '',
+            "ipfrom"    =>  '',
             "regtime"   =>  $timestamp,
             "logintime" =>  $timestamp,
         ));
@@ -73,8 +75,8 @@ if(empty($step)){
         $db->set("username:".$username,$uid);
         $db->set("email:".$email,$uid);
     
-        //同步存儲檔案
-        $db->save();
+        //異步儲存檔案
+        $db->bgsave();
         
         
         echo 'success';ajaxfooter();

@@ -1,6 +1,6 @@
 <?php
 require("global.php");
-security::Getglobals(array('username','password','step'),'POST','true');
+security::Getglobals(array('email','password','step'),'POST','true');
 
 if(empty($step)){
     
@@ -19,24 +19,32 @@ if(empty($step)){
     
     
 } else  {
-    $username = security::stripTags($username);
+    $email = security::stripTags($email);
     $password = security::stripTags($password);
-    if(empty($username) || empty($password)){
+    if(empty($email) || empty($password)){
         echo '無此帳號';ajaxfooter();
     }
     
-    
-    $id = $db->get("username:".$username);
+
+    $id = $db->get("email:".$email);
     if(!empty($id)){
         $dbpassword = $db->hget("user:".$id,"password");
         if(md5($password) == $dbpassword){
+    
+            $country = GeoipCheck();
+            
+            
             $db->hmset("user:".$id,array(
-                "logintime" =>  $timestamp,
+                "onlineip"  =>  $GLOBALS['onlineip'],
+                "ipfrom"    =>  $country,
+                "logintime" =>  $GLOBALS['timestamp'],
             ));
             
             list($type,$ver) = mobiledevice();
             
-            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip']."|本機區網|$type|$ver");
+            $username = $db->hget("user:".$id,"username");
+            
+            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip']."|$country|$type|$ver");
             $db->save();
             CookieModel::ShowCookie('UserLogin',CookieModel::ValueEncryption($id."|".$username));
 

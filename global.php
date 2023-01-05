@@ -170,7 +170,7 @@ function footer(){
     ob_end_clean();
     $output = ObFirstr($output);
     if($GLOBALS['default_redundancy']){
-        $output= str_replace("\n",'', $output);
+        $output = compress_html($output);
     }
     
     $output = removeBOM($output);
