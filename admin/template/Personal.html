@@ -1,0 +1,50 @@
+<!--<?php
+include template('header');
+print <<<EOT
+-->
+
+
+
+<div class="container-fluid">
+      <h4>修改密碼</h4>
+
+      <div class="formvalidation">
+
+            <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">登入帳號</label>
+                  <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext"  value="$adminusername">
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">登入密碼</label>
+                  <div class="col-sm-3">
+                        <input type="password" name="oldpass" class="form-control"  value="" required>
+                        <div class="oldpass invalid-feedback">
+                              請輸入您的登入密碼
+                        </div>
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">更改密碼</label>
+                  <div class="col-sm-3">
+                        <input type="password" name="newpass" class="form-control"  value="" required>
+                        <div class="newpass invalid-feedback">
+                              請輸入您的變更密碼
+                        </div>
+                  </div>
+            </div>
+            <div class="row mb-3">
+                  <div class="col-sm-10 offset-sm-2">
+                        <button type="button" name="SendPost"  onclick="SendPost();" class="btn btn-primary">送出</button>
+                  </div>
+            </div>
+      </div>
+      <script type="text/javascript" src="admin/js/Personal.js"></script>
+</div>
+
+
+<!--
+EOT;
+include template('footer');
+?>-->

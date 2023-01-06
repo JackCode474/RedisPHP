@@ -124,10 +124,11 @@ function topmenu(n,t) {
             
             
             linkframe(linkUrl, t);
-            
+            $("#navbarSupportedContent").removeClass('show');
       } else {
             
             linkframe(linkUrl, t);
+            $("#navbarSupportedContent").removeClass('show');
       }
       
 }
@@ -244,10 +245,8 @@ function AdminMsgClse() {
 
 function getreloads(){
       var src = $('.iframe-content:visible').attr('data-url');
-      
-
       $('.iframe-content:visible').attr('src',src);
-
+      $("#navbarSupportedContent").removeClass('show');
 }
 
 

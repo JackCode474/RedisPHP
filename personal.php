@@ -130,7 +130,7 @@ if(empty($action)){
     ));
     
     //同步存儲檔案
-    $db->save();
+    $db->bgsave();
     
     
     echo 'success';ajaxfooter();

@@ -48,7 +48,7 @@ if(!empty($AdminUSER) && !empty($AdminPW)){
     
 } else {
     
-    list($admincpid,$adminusername,$adminsleval,$admincountry) = AdminInfoChecks();
+    list($admincpid,$adminusername,$admingroup) = AdminInfoChecks();
 
 }
 
@@ -256,11 +256,11 @@ function StartSqlDb(){
         if (!is_object($GLOBALS['db'])) {
             
             $db = new Redis();
-            if ($db->connect($GLOBALS['Redishost'],$GLOBALS['Redisport']) == false) {
+            if (!$db->connect($GLOBALS['Redishost'],$GLOBALS['Redisport'])) {
                 die($db->getLastError());
             }
             
-            if($db->auth($GLOBALS['Redispwassword']) == false){
+            if(!$db->auth($GLOBALS['Redispwassword'])){
                 die($db->getLastError());
             }
         }

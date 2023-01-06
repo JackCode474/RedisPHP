@@ -107,21 +107,16 @@ function meassage($msg='',$jumpurl='',$Second=2){
     if(empty($jumpurl)){
         $Second='0';
     }
-    
-
     require_once printHTML('meassage');
-    
     $output = ob_get_contents();
-    
     $output = preg_replace("/<!--(.*?)-->/is","",$output);
-    
     if($GLOBALS['default_rewrite']){
         $output =  HtmlRewrite($output);
     }
     
     
     ob_end_clean();
-    
+    $GLOBALS['db']->close();
     $output = ObFirstr($output);
     $output = compress_html($output);
     $output = removeBOM($output);
@@ -203,25 +198,21 @@ function HtmlRewrite($output=''){
     return $output;
 }
 
-function Startsql(){
+function Startsql():void{
     global $db;
-   
+    
     try{
-    
-        if (!is_object($GLOBALS['db'])) {
-    
-            $db = new Redis();
-            if ($db->connect($GLOBALS['Redishost'],$GLOBALS['Redisport']) == false) {
-                die($db->getLastError());
-            }
-        
-            if($db->auth($GLOBALS['Redispwassword']) == false){
-                die($db->getLastError());
-            }
-        }
-    
+         
+         if (!is_object($GLOBALS['db'])) {
+             $db = new Redis();
+             if (!$db->connect($GLOBALS['Redishost'],$GLOBALS['Redisport'])) {
+                 die($db->getLastError());
+             }
+             if(!$db->auth($GLOBALS['Redispwassword'])){
+                 die($db->getLastError());
+             }
+         }
     }catch (RedisException $ex) {
- 
         echo $ex->getMessage();
         exit;
     }
