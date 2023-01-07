@@ -134,5 +134,41 @@ if(empty($action)){
     
     
     echo 'success';ajaxfooter();
+    
+} else  if($action == "LoginLog"){
+    
+    $title = "Login Log";
+    
+    require_once printHTML('header');
+    
+    $activeLoginLog = 'active';
+    
+    $styleLoginLog = 'style="color: white;"';
+    
+    
+    
+    $count =$db->lsize("LoginLog:$userid");//获取链表的长度
+    //每次分頁幾筆
+    $page_size = 20;
+    //當前分頁
+    $page_num=(!empty($page)) ? $page : 1;
+    //分頁數
+    $page_count = ceil($count/$page_size);
+
+    
+    
+    $links = 1;
+    $start      = ( ( $page_num - $links ) > 0 ) ? $page_num - $links : 1;
+    $end        = ( ( $page_num + $links ) <$page_count ) ? $page_num + $links : $page_count;
+    
+    $LoginLog =$db->lrange("LoginLog:$userid", ($page_num-1)*$page_size,($page_num)*$page_size);
+    
+    
+    $page = showpage($count, $page_num, $page_count,'personal.php?action=LoginLog');
+    
+    require_once printHTML('personalLoginLog');
+    
+    require_once printHTML('footer');footer();
+    
 }
 ?>

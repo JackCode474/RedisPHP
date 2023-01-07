@@ -1,6 +1,6 @@
 <?php
 require("global.php");
-
+$userid && ObHeader("personal.php");
 security::Getglobals(array('username','password','email','step'),'POST','true');
 
 if(empty($step)){
@@ -66,8 +66,10 @@ if(empty($step)){
             "email"     =>  $email,
             "onlineip"  =>  '',
             "ipfrom"    =>  '',
-            "regtime"   =>  $timestamp,
-            "logintime" =>  $timestamp,
+            'device'    =>  '',
+            'version'   =>  '',
+            "regtime"   => $GLOBALS['timestamp'],
+            "logintime" => $GLOBALS['timestamp'],
         ));
 
         $db->rpush("uid",$uid);

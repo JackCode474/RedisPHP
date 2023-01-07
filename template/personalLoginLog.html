@@ -1,0 +1,66 @@
+<!--<?php print <<<EOT
+-->
+<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Login Log</li>
+      </ol>
+</nav>
+
+<div class="row">
+      <div class="col-md-2">
+
+<!--
+EOT;
+require_once printHTML('personalmenu');
+print <<<EOT
+-->
+
+
+      </div>
+      <div class="col-md-10">
+
+
+
+            <div class="table-responsive-xxl" id="no-more-tables">
+                  <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                              <th>IP</th>
+                              <th>Form</th>
+                              <th>裝置</th>
+                              <th>版本</th>
+                              <th>時間</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+<!--
+EOT;
+foreach ($LoginLog as $key => $value){
+list($onlineip,$country,$type,$ver,$time) =  explode('|',$value);
+print <<<EOT
+-->
+                        <tr>
+                              <td data-title="IP">$onlineip</td>
+                              <td data-title="Form">$country</td>
+                              <td data-title="裝置">$type</td>
+                              <td data-title="版本">$ver</td>
+                              <td data-title="時間">$time</td>
+                        </tr>
+<!--
+EOT;
+}print <<<EOT
+-->
+                        </tbody>
+                  </table>
+            </div>
+
+            $page
+
+      </div>
+</div>
+<!--
+EOT;
+?>-->

@@ -1,5 +1,8 @@
 <?php
 require("global.php");
+
+$userid && ObHeader("personal.php");
+
 security::Getglobals(array('email','password','step'),'POST','true');
 
 if(empty($step)){
@@ -32,20 +35,23 @@ if(empty($step)){
         if(md5($password) == $dbpassword){
     
             $country = GeoipCheck();
-            
+            list($type,$ver) = mobiledevice();
             
             $db->hmset("user:".$id,array(
                 "onlineip"  =>  $GLOBALS['onlineip'],
                 "ipfrom"    =>  $country,
+                'device'    =>  $type,
+                'version'   =>  $ver,
                 "logintime" =>  $GLOBALS['timestamp'],
             ));
             
-            list($type,$ver) = mobiledevice();
             
             $username = $db->hget("user:".$id,"username");
             
-            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip']."|$country|$type|$ver");
-            $db->save();
+            $db->lPush('LoginLog:'.$id, $GLOBALS['onlineip']."|$country|$type|$ver|".date('Y-m-d H:i:s',$GLOBALS['timestamp']));
+            
+            $db->bgsave();
+            
             CookieModel::ShowCookie('UserLogin',CookieModel::ValueEncryption($id."|".$username));
 
             echo 'success';ajaxfooter();
